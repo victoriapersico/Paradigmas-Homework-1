@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//no hace falta que haga un liberar memoria?
+
 int** create_matrix(int n){
 
     int** array = new int *[n];
