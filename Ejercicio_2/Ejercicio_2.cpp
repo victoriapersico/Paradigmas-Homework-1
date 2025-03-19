@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-using namespace std;
+#include <stdexcept>
 
-//BORRAR TESTS
+using namespace std;
 
 enum NivelSeveridad {
     DEBUG =1,
@@ -34,8 +34,42 @@ void logMessage(const std::string& message, int SeverityLevel){
     }
 }
 
-// int main() {
-//     logMessage("tiene que decir debug", 1);
-//     logMessage("tiene que decir warning.", 3); 
-//     logMessage("Tiene que decir error", 4); 
-// }
+void logMessage(const std::string& message, const std::string& file_name, int line){
+    std::ofstream file ("logged_file.txt", std::ios::app);
+    if (file.is_open()){
+        file << "[ERROR] File: "<< file_name << ", Line: "<<line<<", Error Type: " << message <<std::endl;
+        file.close();
+    }
+    else{
+       throw std::runtime_error("Failed to open the file.");
+    }
+}
+
+void logMessage(const std::string& message, const std::string& username){
+    std::ofstream file("logged_file.txt", std::ios::app);
+    if (file.is_open()){
+        file << "[SECURITY] Usuario: "<< username << ", Status: " << message <<std::endl;
+        file.close();
+    }
+    else{
+        std::cerr<<"Error: Failed to open the file." << std::endl;
+    }
+}
+int main() {
+    try {
+        logMessage("Possible Segmentation Fault", 1);
+        logMessage("Check", 2); 
+        logMessage("Dangling Pointer", 3);
+        logMessage("Dividing by Zero", 4);
+        logMessage("Memory Leak", 5);
+        logMessage("Diving by Zero", "Physics_Homework.pdf", 23);
+        throw std::runtime_error("Mocked runtime error");
+    }
+    catch (const std::exception& e){
+        std::cerr << "Exception caught: " << e.what() << std::endl;
+        logMessage(e.what(), "Physics_Homework.pdf", 23);
+        std::cerr<<"Error has ocurred, closing program with code 1." <<std::endl;
+        return 1;
+    }
+    return 0;
+}

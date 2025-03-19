@@ -1,9 +1,0 @@
-hola[INFO]Este es un mensaje de prueba.
-[CRITICAL]Error crítico detectado.
-[LEVEL NOT LOGGED]Nivel no válido.
-[INFO] Este es un mensaje de prueba.
-[CRITICAL] Error crítico detectado.
-[LEVEL NOT LOGGED] Nivel no válido.
-[DEBUG] tiene que decir debug
-[WARNING] tiene que decir warning.
-[ERROR] Tiene que decir error
