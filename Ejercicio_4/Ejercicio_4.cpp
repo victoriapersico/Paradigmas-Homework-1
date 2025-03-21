@@ -1,9 +1,7 @@
 #include <iostream>
 #include <chrono>
 
-
 using namespace std;
-
 
 // SECTION A: Recursive comparison using char*
 bool recursive_comparison(const char* s1, const char* s2) {
@@ -60,6 +58,7 @@ int main() {
 
 
    // SECTION C: Compile-time comparison
+   cout << "Inciso C:\n" << endl;
    constexpr const char text4[] = "In sociology, Emile Durkheim defined social facts as ways of acting, thinking, and feeling that exist outside of individuals but exert control over them, shaping their behavior and social reality. These are external, coercive, and independent of individual manifestations.";
    constexpr const char text5[] = "In sociology, Emile Durkheim defined social facts as ways of acting, thinking, and feeling that exist outside of individuals but exert control over them, shaping their behavior and social reality. These are external, coercive, and independent of individual manifestations.";
    constexpr const char text6[] = "NASAs newest astrophysics observatory, SPHEREx, is on its way to study the origins of our universe and the history of galaxies, and to search for the ingredients of life in our galaxy. Short for Spectro-Photometer for the History of the Universe, Epoch of Reionization and Ices Explorer, SPHEREx lifted off at 8:10 p.m. PDT on March 11 aboard a SpaceX Falcon 9 rocket from Space Launch Complex 4 East at Vandenberg Space Force Base in California.";
@@ -93,6 +92,10 @@ int main() {
    cout << "Compile-time answer: " << (answerRuntime2 ? "Yes" : "No") << endl;
    cout << "Runtime: " << elapsedTimeCompile2.count() << " nanoseconds.\n" << endl;
 
+   //Comentarios Finales:
 
+   // A: Usar std::string y substr() es el tipo más lento porque copia en memoria una nueva cadena por cada llamada de la función recursiva. Usar std::string e índices para recorrer la cadena sin hacer copias es más rápida. Pero la mejor opción es char* porque compara cada caracter usando punteros en memoria, en vez de copiar la cadena. 
+   // C: Conclusión: Comparar los textos en tiempo de compilación, con constexpr, es más eficiente que compararlos en tiempo de ejecución porque el compilador lo resuelve antes que el programa se ejecute. Para cuando sea el tiempo de ejecución, la comparación ya está pre-evaluada y no toma tanto tiempo en ejecutarse. La versión en tiempo de ejecución necesita recorrer los caracteres uno por uno en memoria.
+   
    return 0;
 }
