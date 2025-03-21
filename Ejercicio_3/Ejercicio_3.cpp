@@ -4,24 +4,25 @@
 
 using namespace std;
 
+// Estructura para representar un nodo en la lista
 struct node{
     int value;
-    shared_ptr<node> next;
+    shared_ptr<node> next; // Puntero al siguiente nodo
 };
-
+// Estructura para representar la lista simplemente enlazada
 struct list{
     shared_ptr<node> head;
     shared_ptr<node> tail;
     size_t size;
 };
-
+// Crea un nuevo nodo con un valor dado y retorna un shared_ptr
 shared_ptr<node> create_node(int value){
     shared_ptr<node> new_node = make_shared<node>();
     new_node->value = value;
     new_node->next = nullptr;
     return new_node;
 }
-
+// Crea una nueva lista vacía y retorna un shared_ptr
 shared_ptr<list> create_list(){
     shared_ptr<list> new_list = make_shared<list>();
     new_list->head = nullptr;
@@ -29,11 +30,11 @@ shared_ptr<list> create_list(){
     new_list->size = 0;
     return new_list;
 }
-
+// Inserta un nodo al inicio de la lista
 void push_front(int value, shared_ptr<list>& my_list){ 
     shared_ptr<node> new_node = create_node(value);
 
-    if (!my_list->head){
+    if (!my_list->head){ // Si la lista está vacía
         my_list->head= my_list->tail=new_node;
     }
     else{
@@ -42,11 +43,11 @@ void push_front(int value, shared_ptr<list>& my_list){
     }
     my_list->size++;
 }
-
+// Inserta un nodo al final de la lista
 void push_back(int value, shared_ptr<list>& my_list){
     shared_ptr<node> new_node = create_node(value);
 
-    if (!my_list->head){
+    if (!my_list->head){// Si la lista está vacía
         my_list->head= my_list->tail=new_node;
     }
     else{
@@ -55,11 +56,11 @@ void push_back(int value, shared_ptr<list>& my_list){
     }
     my_list->size++;
 }
-
+// Inserta un nodo en una posición específica de la lista
 void insert(size_t position, int value, shared_ptr<list>& my_list){
     if(!my_list) return;
 
-    if (position==0){
+    if (position==0){// Si es la primera posición usa push_front
         push_front(value,my_list);
         return;
     }
@@ -68,34 +69,34 @@ void insert(size_t position, int value, shared_ptr<list>& my_list){
     shared_ptr<node> current = my_list->head;
     size_t current_index = 0;
 
-    while(current && current_index < position - 1){
+    while(current && current_index < position - 1){// Avanza hasta la posición deseada o hasta que se termina la lista
         current = current->next;
         current_index++;
     }
 
-    if(!current){
+    if(!current){ // Inserta al final si la posición está fuera de rango
         cout<< "Index out of list's range, inserting at the end."<<endl;
         push_back(value,my_list);
         return;
     }
 
-    new_node->next=current->next;
+    new_node->next=current->next; // Inserta el nuevo nodo en la posición correcta
     current->next=new_node;
 
-    if(!new_node->next){
+    if(!new_node->next){ // Si el nodo se insertó al final, actualiza tail
         my_list->tail = new_node;
     }
 
     my_list->size++;
 }
-
+// Elimina un nodo en una posición específica de la lista
 void erase(size_t position, shared_ptr<list>& my_list){
     if(!my_list || !my_list->head){
         cout<<"List is empty, there're no elements to remove."<<endl;
         return;
     }
 
-    if (position==0){
+    if (position==0){ // Caso si se elimina el primer nodo
         my_list->head=my_list->head->next;
         if(!my_list->head){ //caso si la lista se queda vacia
             my_list->tail = nullptr;
@@ -108,13 +109,13 @@ void erase(size_t position, shared_ptr<list>& my_list){
     shared_ptr<node> previous = nullptr;
     size_t current_index = 0;
 
-    while(current->next && current_index < position){ //avanzo 
+    while(current->next && current_index < position){ //avanza hasta la posición indicada
         previous=current;
         current=current->next;
         current_index++;
     }
 
-    if (current_index < position) {
+    if (current_index < position) { // Si la posición es mayor al tamaño de la lista
         cout << "Index out of list's range, removing its tail." << endl;
         if (previous) { // si hay un nodo anterior elimino el último nodo
             previous->next = nullptr;
@@ -127,16 +128,16 @@ void erase(size_t position, shared_ptr<list>& my_list){
         my_list->size--;
         return;
     }
-
+    //Elimino el actual conectando el nodo anterior con el siguiente
     previous->next=current->next;
-    if(!previous->next){
+    if(!previous->next){ // Si se elimina el último nodo, actualiza tail
         my_list->tail=previous;
     }
     my_list->size--;
 }
-
+//Imprime la lista
 void print_list(shared_ptr<list>& my_list){
-    if(!my_list || !my_list->head){
+    if(!my_list || !my_list->head){ //Si la lista está vacía
         cout<<"List is empty."<<endl;
         return;
     }

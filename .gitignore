@@ -5,19 +5,17 @@
 */dale
 
 # Ignorar archivos de depuración de macOS
-dSYM/
 *.dSYM/
+*/.DS_Store
 
-# Ignorar archivos sin extensión (posibles ejecutables en Unix/macOS)
-*
-!*/
+# Ignorar archivos de texto
+*.txt
+*/*.txt
+
+# Mantener archivos de código fuente y configuración
 !*.cpp
 !*.h
 !*.hpp
 !*.c
 !*.md
 !*.gitignore
-
-# Ignorar archivos de texto
-*.txt
-*/*.txt

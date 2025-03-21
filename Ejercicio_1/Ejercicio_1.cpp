@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+// Crea una matriz dinámica tamaño n x n
 int** create_matrix(int n){
 
     int** array = new int *[n];
@@ -9,7 +9,7 @@ int** create_matrix(int n){
     }
     return array;
 }
-
+// Asigna valores consecutivos a cada casillero de la matriz, arrancando desde 1
 void assign_value(int** array, int n){
     int value = 1;
     for(int i=0; i<n*n; i++){
@@ -18,7 +18,7 @@ void assign_value(int** array, int n){
         array[row][column]=value++;
     }
 }
-
+// Imprime los valores de la matriz decrecientemente (usando un solo bucle)
 void print_values_decreasing_way(int **array, int n){
 
     for(int i = n*n-1; i>=0; i--){
@@ -28,7 +28,7 @@ void print_values_decreasing_way(int **array, int n){
     }
 
 }
-
+// Libera la memoria asignada dinámicamente a la matriz
 void free_matrix(int ** array, int n){
 
     for(int i =0; i<n;i++){

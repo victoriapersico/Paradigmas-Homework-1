@@ -4,11 +4,12 @@
 using namespace std;
 
 // SECTION A: Recursive comparison using char*
+// Compara dos cadenas de caracteres recursivamente usando punteros.
 bool recursive_comparison(const char* s1, const char* s2) {
-   if (*s1 == '\0' && *s2 == '\0') {
+   if (*s1 == '\0' && *s2 == '\0') { //Si las 2 cadenas terminan, devuelve True
        return true;
    }
-   if (*s1 != *s2) {
+   if (*s1 != *s2) { //Las cadenas son diferentes si algún caracter es distinto
        return false;
    }
    return recursive_comparison(s1 + 1, s2 + 1); // Avanzamos punteros recursivamente
@@ -17,13 +18,13 @@ bool recursive_comparison(const char* s1, const char* s2) {
 
 // SECTION C: Compile-time comparison using constexpr
 constexpr bool compile_time_comparison(const char s1[], const char s2[], size_t index = 0) {
-   if (s1[index] == '\0' && s2[index] == '\0') {
+   if (s1[index] == '\0' && s2[index] == '\0') { //Caso base cuando las 2 cadenas terminan
        return true;
    }
-   if (s1[index] != s2[index]) {
+   if (s1[index] != s2[index]) { //Las cadenas son diferentes si algún caracter es distinto
        return false;
    }
-   return compile_time_comparison(s1, s2, index + 1);
+   return compile_time_comparison(s1, s2, index + 1); //Llama recursivamente avanzando en el índice
 }
 
 
