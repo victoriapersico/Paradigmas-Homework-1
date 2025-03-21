@@ -13,11 +13,11 @@ enum NivelSeveridad {
     CRITICAL
 };
 
-void logMessage(const std::string& message, int SeverityLevel){
+void logMessage(const string& message, int SeverityLevel){
 
-    std::ofstream file("logged_file.txt", std::ios::app); //abre el archivo en modo append
+    ofstream file("logged_file.txt", ios::app); //abre el archivo en modo append
     if (file.is_open()){
-        std::string Severity_Label;
+        string Severity_Label;
         switch (SeverityLevel){
             case DEBUG: Severity_Label = "DEBUG"; break;
             case INFO: Severity_Label = "INFO"; break;
@@ -26,33 +26,33 @@ void logMessage(const std::string& message, int SeverityLevel){
             case CRITICAL: Severity_Label = "CRITICAL"; break;
             default: Severity_Label = "LEVEL NOT LOGGED"; break;
         }
-        file << "["<< Severity_Label<< "] " << message <<std::endl;
+        file << "["<< Severity_Label<< "] " << message <<endl;
         file.close();
     }
     else{
-        std::cerr <<"Error: Failed to open the file."<<std::endl;
+        cerr <<"Error: Failed to open the file."<<endl;
     }
 }
 
-void logMessage(const std::string& message, const std::string& file_name, int line){
-    std::ofstream file ("logged_file.txt", std::ios::app);
+void logMessage(const string& message, const string& file_name, int line){
+    ofstream file ("logged_file.txt", ios::app);
     if (file.is_open()){
-        file << "[ERROR] File: "<< file_name << ", Line: "<<line<<", Error Type: " << message <<std::endl;
+        file << "[ERROR] File: "<< file_name << ", Line: "<<line<<", Error Type: " << message <<endl;
         file.close();
     }
     else{
-       throw std::runtime_error("Failed to open the file.");
+       throw runtime_error("Failed to open the file.");
     }
 }
 
-void logMessage(const std::string& message, const std::string& username){
-    std::ofstream file("logged_file.txt", std::ios::app);
+void logMessage(const string& message, const string& username){
+    ofstream file("logged_file.txt", ios::app);
     if (file.is_open()){
-        file << "[SECURITY] Usuario: "<< username << ", Status: " << message <<std::endl;
+        file << "[SECURITY] Usuario: "<< username << ", Status: " << message <<endl;
         file.close();
     }
     else{
-        std::cerr<<"Error: Failed to open the file." << std::endl;
+        cerr<<"Error: Failed to open the file." << endl;
     }
 }
 int main() {
@@ -63,12 +63,12 @@ int main() {
         logMessage("Dividing by Zero", 4);
         logMessage("Memory Leak", 5);
         logMessage("Diving by Zero", "Physics_Homework.pdf", 23);
-        throw std::runtime_error("Mocked runtime error");
+        throw runtime_error("Mocked runtime error");
     }
-    catch (const std::exception& e){
-        std::cerr << "Exception caught: " << e.what() << std::endl;
-        logMessage(e.what(), "Physics_Homework.pdf", 23);
-        std::cerr<<"Error has ocurred, closing program with code 1." <<std::endl;
+    catch (const exception& e){
+        cerr << "Exception caught: " << e.what() << endl;
+        logMessage(e.what(), "Mocked_Runtime_Error.pdf", 13);
+        cerr<<"After mocked runtime error has ocurred, closing program with code 1." <<endl;
         return 1;
     }
     return 0;
